@@ -2,7 +2,7 @@
 <Project>
     <Target Name="CopyToPlugins" AfterTargets="Build" Condition="'$(CI)'!='TRUE'">
         <PropertyGroup>
-            <PluginPath>$(PluginsPath)\)</PluginPath>
+            <PluginPath>$(PluginsPath)\</PluginPath>
         </PropertyGroup>
         <MakeDir Directories="$(PluginPath)"/>
 
