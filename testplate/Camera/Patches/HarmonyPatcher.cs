@@ -5,12 +5,12 @@ using UnityEngine;
 using GorillaTag;
 namespace CameraMod.Camera.Patches {
     public class HarmonyPatcher : MonoBehaviour {
-        public static Harmony instance;
+        public static HarmonyLib.Harmony instance;
         public static bool IsPatched { get; private set; }
 
         internal static void ApplyHarmonyPatches() {
             if (!IsPatched) {
-                if (instance == null) instance = new Harmony(PluginInfo.GUID);
+                if (instance == null) instance = new HarmonyLib.Harmony(PluginInfo.GUID);
                 instance.PatchAll(Assembly.GetExecutingAssembly());
 
                 IsPatched = true;

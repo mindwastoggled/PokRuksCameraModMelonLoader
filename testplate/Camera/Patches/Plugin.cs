@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
-using BepInEx;
+using CameraMod;
+using MelonLoader;
 using UnityEngine;
 using UnityEngine.Networking;
 
+
+[assembly: MelonInfo(typeof(CameraMod.Camera.Patches.HarmonyPatches), PluginInfo.Name, PluginInfo.Version, PluginInfo.Author)]
+[assembly: MelonGame("Another Axiom", "Gorilla Tag")]
 namespace CameraMod.Camera.Patches {
-    [Description(PluginInfo.Description)]
-    [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
-    public class HarmonyPatches : BaseUnityPlugin {
-        public string modName = "Pokruk's Camera Mod";
+    
+    public class HarmonyPatches : MelonMod {
+        public string modName = "Pokruk's Camera Mod; MelonLoader fork by @mindwastoggled @togglegtag";
         public string updateUrl = "https://github.com/Pokruk/CameraMod/releases/latest";
 
         private bool showNotification = true;
@@ -94,7 +97,7 @@ namespace CameraMod.Camera.Patches {
         }
         
         public void OnEnable() {
-            StartCoroutine(CameraStartCoroutine());
+            MelonCoroutines.Start(CameraStartCoroutine());
         }
 
         public void OnDisable() {

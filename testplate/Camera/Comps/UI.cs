@@ -51,21 +51,6 @@ namespace CameraMod.Camera.Comps {
             PhotonNetworkController.Instance.disableAFKKick = spectating || freecam;
         }
 
-        private void WaterMark() {
-            float width = 200;
-            float height = 50;
-
-            float x = Screen.width - width - 10;
-            float y = Screen.height - height - 10;
-
-            GUIStyle style = new GUIStyle();
-            style.fontSize = 20;
-            style.normal.textColor = new Color(1, 1, 1, 0.1f);
-
-            Rect labelRect = new Rect(x, y, width, height);
-            GUI.Label(labelRect, "Pokruk's Camera Mod", style);
-        }
-
         public void SpecMode() {
             CameraController.Instance.cameraMode = CameraMode.None;
         }
@@ -83,8 +68,6 @@ namespace CameraMod.Camera.Comps {
                 CameraClampVisualizer.OnGUI(cameraController.thirdPersonCamera, cameraController.cameraFollowerT, CameraController.MaxAngle);
             }
             
-            if (watermarkEnabled)
-                WaterMark();
 
             if (Keyboard.current.tabKey.isPressed) {
                 if (!keyp) uiopen = !uiopen;
@@ -194,22 +177,9 @@ namespace CameraMod.Camera.Comps {
 
             GUILayout.Space(5);
 
-            // Copy UserID
-            if (GUILayout.Button("Copy UserID")) {
-                GUIUtility.systemCopyBuffer = PlayFabAuthenticator.instance.GetPlayFabPlayerId();
-            }
             
             GUILayout.Space(5);
 
-            // Room management
-            if (PhotonNetwork.InRoom) {
-                if (GUILayout.Button($"Leave {PhotonNetwork.CurrentRoom.Name}", GUILayout.Height(45)))
-                    PhotonNetwork.Disconnect();
-            } else {
-                roomToJoin = GUILayout.TextField(roomToJoin.Replace(@"\", ""), GUILayout.Height(20));
-                if (GUILayout.Button("Join Room", GUILayout.Height(20)))
-                    PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(roomToJoin, JoinType.Solo);
-            }
 
             // Angle Clamping
             var toClamp = GUILayout.Toggle(CameraController.AngleClamping, "Angle Clamping");
@@ -235,7 +205,6 @@ namespace CameraMod.Camera.Comps {
 
             GUILayout.Space(10);
             
-            if (GUILayout.Button("Join Discord")) Process.Start("https://discord.gg/8qaPhVjpsG");
             
             // allow dragging
             GUI.DragWindow(new Rect(0, 0, 10000, 20));
@@ -292,17 +261,6 @@ namespace CameraMod.Camera.Comps {
                 if (Keyboard.current.downArrowKey.isPressed)
                     tabletTransform.eulerAngles += new Vector3(-freecamsens, 0f, 0f);
             }
-            //270-360 низ - середина
-            //    0 - 90 середина верх
-            //var angles = tabletTransform.eulerAngles;
-            //var xVar = angles.x;
-            //Debug.Log(angles.x);
-            //if (xVar >= 180 && xVar < 270) {
-            //    xVar = 270;
-            //} else if (xVar < 180 && xVar > 90) {
-            //    xVar = 90;
-            //}
-            //tabletTransform.transform.eulerAngles = new Vector3(xVar, angles.y, angles.z);
 
             if (freecam && controllerfreecam) {
                 var x = InputManager.instance.GPLeftStick.x;
