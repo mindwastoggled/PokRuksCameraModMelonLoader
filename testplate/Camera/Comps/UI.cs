@@ -50,9 +50,27 @@ namespace CameraMod.Camera.Comps {
             Freecam();
             PhotonNetworkController.Instance.disableAFKKick = spectating || freecam;
         }
+        
+        private void WaterMark() {
+            float width = 200;
+            float height = 50;
+
+            float x = Screen.width - width - 10;
+            float y = Screen.height - height - 10;
+
+            GUIStyle style = new GUIStyle();
+            style.fontSize = 20;
+            style.normal.textColor = new Color(1, 1, 1, 0.1f);
+
+            Rect labelRect = new Rect(x, y, width, height);
+            GUI.Label(labelRect, "Pokruk's Camera Mod", style);
+        }
 
         public void SpecMode() {
             CameraController.Instance.cameraMode = CameraMode.None;
+            
+            
+            
         }
 
         public string roomToJoin = "";
@@ -63,11 +81,14 @@ namespace CameraMod.Camera.Comps {
         private Rect specWindowRect = new Rect(250, 50, 300, 0);
 
         private void OnGUI() {
+            
             if (toShowAngleClampingDebugGUI) {
                 var cameraController = CameraController.Instance;
                 CameraClampVisualizer.OnGUI(cameraController.thirdPersonCamera, cameraController.cameraFollowerT, CameraController.MaxAngle);
             }
             
+            if (watermarkEnabled)
+                WaterMark();
 
             if (Keyboard.current.tabKey.isPressed) {
                 if (!keyp) uiopen = !uiopen;
@@ -177,6 +198,10 @@ namespace CameraMod.Camera.Comps {
 
             GUILayout.Space(5);
 
+            // Copy UserID
+            if (GUILayout.Button("Copy UserID")) {
+                GUIUtility.systemCopyBuffer = PlayFabAuthenticator.instance.GetPlayFabPlayerId();
+            }
             
             GUILayout.Space(5);
 
@@ -205,7 +230,7 @@ namespace CameraMod.Camera.Comps {
 
             GUILayout.Space(10);
             
-            
+            if (GUILayout.Button("Join Discord")) Process.Start("https://discord.gg/8qaPhVjpsG");
             // allow dragging
             GUI.DragWindow(new Rect(0, 0, 10000, 20));
         }

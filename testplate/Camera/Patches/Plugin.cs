@@ -12,7 +12,7 @@ using UnityEngine.Networking;
 namespace CameraMod.Camera.Patches {
     
     public class HarmonyPatches : MelonMod {
-        public string modName = "Pokruk's Camera Mod; MelonLoader fork by @mindwastoggled @togglegtag";
+        public string modName = "PokruksCameraModMLE";
         public string updateUrl = "https://github.com/Pokruk/CameraMod/releases/latest";
 
         private bool showNotification = true;
@@ -70,10 +70,13 @@ namespace CameraMod.Camera.Patches {
             }
         }
 
-        public static bool isVersionChecked = false;
+        public static bool isVersionChecked = true;
         public static bool updateIsNeeded = false;
         public static string desiredVersion = "";
-        private static IEnumerator FetchForceUpdate() {
+        
+        // FFU Disabled for now, since it is expecting the same version as the original.
+        
+        /*private static IEnumerator FetchForceUpdate() {
             UnityWebRequest request = UnityWebRequest.Get("https://pastebin.com/raw/LwXaTiFH");
             yield return request.SendWebRequest();
             var errored = request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError;
@@ -87,10 +90,11 @@ namespace CameraMod.Camera.Patches {
 
                 updateIsNeeded = desiredVersion != "-" && new Version(PluginInfo.Version) < new Version(desiredVersion);
             }
-        }
+        }*/
 
         private static IEnumerator CameraStartCoroutine() {
-            yield return FetchForceUpdate();
+            //yield return FetchForceUpdate();
+            yield return null;
             if (isVersionChecked && !updateIsNeeded) {
                 HarmonyPatcher.ApplyHarmonyPatches();
             }
