@@ -1,4 +1,6 @@
-# Pokruk's Camera Mod; MelonLoader Edition, forked by Toggle
+# Pokruk's Camera Mod; MelonLoader Edition
+<img width="746" height="165" alt="image" src="https://github.com/user-attachments/assets/10ab616e-2178-4069-bdfd-232bc61857db" />
+
 All original code from the mod is credited towards Pokruk and any complications can be directly taken towards my dms on Discord (@mindwastoggled)
 ## Check out [the mod showcase on TikTok](https://www.tiktok.com/@pokrukgt/video/7427872588166073608) (Note there may be changes in the future) <br />
 ![Download (4)_5](https://github.com/user-attachments/assets/6e87dc89-a3bf-49af-80f7-8a9e3655374f)
