@@ -204,8 +204,17 @@ namespace CameraMod.Camera.Comps {
             }
             
             GUILayout.Space(5);
-
-
+            
+            // Room management
+            if (PhotonNetwork.InRoom) {
+                if (GUILayout.Button($"Leave {PhotonNetwork.CurrentRoom.Name}", GUILayout.Height(45)))
+                    PhotonNetwork.Disconnect();
+            } else {
+                roomToJoin = GUILayout.TextField(roomToJoin.Replace(@"\", ""), GUILayout.Height(20));
+                if (GUILayout.Button("Join Room", GUILayout.Height(20)))
+                    PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(roomToJoin, JoinType.Solo);
+            }
+            
             // Angle Clamping
             var toClamp = GUILayout.Toggle(CameraController.AngleClamping, "Angle Clamping");
             if (toClamp != CameraController.AngleClamping) {

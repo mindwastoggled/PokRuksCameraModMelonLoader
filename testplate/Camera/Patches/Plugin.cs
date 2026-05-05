@@ -13,7 +13,7 @@ namespace CameraMod.Camera.Patches {
     
     public class HarmonyPatches : MelonMod {
         public string modName = "PokruksCameraModMLE";
-        public string updateUrl = "https://github.com/Pokruk/CameraMod/releases/latest";
+        public string updateUrl = "https://github.com/mindwastoggled/PokRuksCameraModMelonLoader";
 
         private bool showNotification = true;
         private Rect windowRect = new Rect(100, 100, 400, 200);
@@ -30,7 +30,7 @@ namespace CameraMod.Camera.Patches {
             versionStyle.fontSize = 14;
             versionStyle.alignment = TextAnchor.MiddleCenter;
 
-            windowRect = GUI.Window(0, windowRect, DrawWindow, "Mod Update Available!");
+            windowRect = GUI.Window(0, windowRect, DrawWindow, "Mod Update (Might be) Available!");
         }
 
         void DrawWindow(int id) {
@@ -44,12 +44,18 @@ namespace CameraMod.Camera.Patches {
 
             GUILayout.Space(5);
 
-            GUILayout.Label($"Update: {PluginInfo.Version} → {desiredVersion}", new GUIStyle(GUI.skin.label) {
+            GUILayout.Label($"Update: {PluginInfo.Version} → {desiredVersion}.", new GUIStyle(GUI.skin.label) {
                 fontSize = 14,
                 alignment = TextAnchor.MiddleCenter
             });
 
             GUILayout.Space(15);
+            
+            GUILayout.Label("NOTE: The Update might not be released on MelonLoader Edition, complain to @mindwastoggled NOT Pokruk.", new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 14,
+                alignment = TextAnchor.MiddleCenter
+            });
 
             if (GUILayout.Button("Download Update", GUILayout.Height(40))) {
                 Application.OpenURL(updateUrl);
@@ -70,13 +76,12 @@ namespace CameraMod.Camera.Patches {
             }
         }
 
-        public static bool isVersionChecked = true;
+        public static bool isVersionChecked = false;
         public static bool updateIsNeeded = false;
         public static string desiredVersion = "";
         
-        // FFU Disabled for now, since it is expecting the same version as the original.
         
-        /*private static IEnumerator FetchForceUpdate() {
+        private static IEnumerator FetchForceUpdate() {
             UnityWebRequest request = UnityWebRequest.Get("https://pastebin.com/raw/LwXaTiFH");
             yield return request.SendWebRequest();
             var errored = request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError;
@@ -90,7 +95,7 @@ namespace CameraMod.Camera.Patches {
 
                 updateIsNeeded = desiredVersion != "-" && new Version(PluginInfo.Version) < new Version(desiredVersion);
             }
-        }*/
+        }
 
         private static IEnumerator CameraStartCoroutine() {
             //yield return FetchForceUpdate();
